@@ -1,0 +1,27 @@
+# graph Hatsune miku curve
+# http://www.wolframalpha.com/input/?i=graph+Hatsune+miku+curve
+# http://nlab.itmedia.co.jp/nl/articles/1305/02/news063.html
+
+sgn <- function(x) as.complex(sign(Re(x)))
+theta <- function(x) (sgn(x) + 1) / 2
+
+miku <- function(start=0, end=412, n=50000, col=NA, border='grey37') {
+  tseq <- as.complex(seq(start, end, length.out=n))
+  xseq <- x(tseq)
+  yseq <- y(tseq)
+  plot(NA, xlim=c(-1200,1200), ylim=c(-2000,600), xlab='', ylab='')
+  polygon(xseq, yseq, col=col, border=border)
+  #lines(xseq, yseq, col=border)
+}
+
+miku.hair <- function() miku(0, 2*pi, 500, '#97d1d3FF', '#0d827fFF')
+
+miku.hair.shadow <- function() miku(340, 412, 5000, NA, '#0d827fFF')
+
+miku.color <- function() {
+  miku.hair()
+  par(new=T)
+  miku.hair.shadow()
+  par(new=T)
+  miku(start=2*pi,end=340)
+}
